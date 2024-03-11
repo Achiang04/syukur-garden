@@ -7,18 +7,6 @@ function App() {
   const dataRef = ref(db);
 
   const [garden, setGarden] = useState([]);
-  const [newTemp, setNewTemp] = useState(0);
-
-  const createGarden = async () => {
-    push(dataRef, newTemp)
-      .then(() => {
-        console.log("Data written successfully!");
-        setNewTemp(0);
-      })
-      .catch((error) => {
-        console.error("Error writing data:", error);
-      });
-  };
 
   useEffect(() => {
     return onValue(dataRef, (snapshot) => {
@@ -34,15 +22,6 @@ function App() {
 
   return (
     <div className="App">
-      <input
-        type="number"
-        number
-        onChange={(event) => {
-          setNewTemp(event.target.value);
-        }}
-      />
-
-      <button onClick={createGarden}> Create Garden</button>
       {(garden ?? []).map((item, index) => {
         return (
           <div key={index}>
