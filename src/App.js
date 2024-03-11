@@ -1,21 +1,28 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { onValue, ref } from "firebase/database";
+import { onValue, ref, push } from "firebase/database";
 import { db } from "./firebase-config";
 
 function App() {
-  const [newTemp, setNewTemp] = useState("");
+  const dataRef = ref(db);
 
   const [garden, setGarden] = useState([]);
+  const [newTemp, setNewTemp] = useState(0);
 
-  const createGarden = async () => {};
+  const createGarden = async () => {
+    push(dataRef, newTemp)
+      .then(() => {
+        console.log("Data written successfully!");
+        setNewTemp(0);
+      })
+      .catch((error) => {
+        console.error("Error writing data:", error);
+      });
+  };
 
   useEffect(() => {
-    const query = ref(db, "projects");
-    console.log("🚀 ~ useEffect ~ query:", query);
-    return onValue(query, (snapshot) => {
+    return onValue(dataRef, (snapshot) => {
       const data = snapshot.val();
-      console.log("🚀 ~ returnonValue ~ data:", data);
 
       if (snapshot.exists()) {
         Object.values(data).map((project) => {
@@ -28,24 +35,18 @@ function App() {
   return (
     <div className="App">
       <input
-        placeholder="temp"
+        type="number"
+        number
         onChange={(event) => {
           setNewTemp(event.target.value);
         }}
       />
 
       <button onClick={createGarden}> Create Garden</button>
-      {(garden ?? []).map((item) => {
+      {(garden ?? []).map((item, index) => {
         return (
-          <div key={item.id}>
-            <h1>temp: {item.temp}</h1>
-            <button
-              onClick={() => {
-                deleteItem(item.id);
-              }}
-            >
-              Delete Temp
-            </button>
+          <div key={index}>
+            <h1>temp: {item}</h1>
           </div>
         );
       })}
