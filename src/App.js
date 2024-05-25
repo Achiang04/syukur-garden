@@ -7,15 +7,18 @@ function App() {
   const dataRef = ref(db);
 
   const [garden, setGarden] = useState([]);
+  console.log("🚀 ~ App ~ garden:", garden);
 
   useEffect(() => {
     return onValue(dataRef, (snapshot) => {
       const data = snapshot.val();
 
       if (snapshot.exists()) {
-        Object.values(data).map((project) => {
-          setGarden((projects) => [...projects, project]);
+        const temp = Object.values(data).map((project) => {
+          return project;
         });
+
+        setGarden(temp);
       }
     });
   }, []);
@@ -24,8 +27,10 @@ function App() {
     <div className="App">
       {(garden ?? []).map((item, index) => {
         return (
-          <div key={index}>
-            <h1>temp: {item}</h1>
+          <div key={index} className="list">
+            <h1>id: {item.id}</h1>
+            <h1>dht: {item.dht}</h1>
+            <h1>soil: {item.soil}</h1>
           </div>
         );
       })}

@@ -28,6 +28,12 @@
   color: #61dafb;
 }
 
+.list {
+  display: flex;
+  justify-content: space-between;
+  max-width: 750px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
