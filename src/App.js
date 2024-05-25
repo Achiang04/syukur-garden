@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { onValue, ref, push } from "firebase/database";
+import { onValue, ref } from "firebase/database";
 import { db } from "./firebase-config";
 
 function App() {
