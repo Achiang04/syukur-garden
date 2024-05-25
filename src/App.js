@@ -7,7 +7,6 @@ function App() {
   const dataRef = ref(db);
 
   const [garden, setGarden] = useState([]);
-  console.log("🚀 ~ App ~ garden:", garden);
 
   useEffect(() => {
     return onValue(dataRef, (snapshot) => {
