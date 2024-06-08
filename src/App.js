@@ -65,7 +65,7 @@ function App() {
     datasets: [
       {
         label: "DHT",
-        data: !isEmptyGarden && garden.map((e, i) => garden[i].dht),
+        data: !isEmptyGarden && garden.map((e) => e.dht),
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
@@ -77,7 +77,7 @@ function App() {
     datasets: [
       {
         label: "Soil",
-        data: !isEmptyGarden && garden.map((e, i) => garden[i].soil),
+        data: !isEmptyGarden && garden.map((e) => e.soil),
         borderColor: "rgb(53, 162, 235)",
         backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
